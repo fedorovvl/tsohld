@@ -33,7 +33,7 @@ sudo networksetup -getautoproxyurl Wi-Fi
 4) run in terminal (replace full path):
 ```shell-script
 cd /[path]/tsohld/
-mitmdump -s ./mitmdump-tsoscript.py
+mitmdump -s ./mitmdump-tsoscript.py --anticache --anticomp --ssl-insecure --listen-host 127.0.0.1 --listen-port 8080
 ```
 5) in brwoser address-bar go "mitm.it" and install certificate
 6) exit from account in thesettlersonline and clear all cache for this site
