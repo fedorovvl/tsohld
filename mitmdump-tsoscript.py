@@ -1,12 +1,18 @@
-
-import os
+import os, re
 from mitmproxy import http
+
 
 def check_string(string, substring_list):
     for substring in substring_list:
         if substring in string:
             return True
     return False
+
+
+def request(flow):
+    flow.request.anticache()
+    flow.request.anticomp()
+
 
 def response(flow):
     if (flow.request.pretty_host == "ubistatic-a.akamaihd.net"):
@@ -92,20 +98,26 @@ def response(flow):
         "9367d4b213d89c1ac68628cffe8821301f16d7c9",
         "76ddf11ab2b648507adb57667e03ee175145c0eb",
         "165b87dddda22a5608c462a548858a82647ac78f"]):
-            img = open("herbs.png", "rb").read()
-            flow.response.content = img
-            flow.response.headers["Content-Type"] = "image/png"
-            flow.response.headers["Content-Length"] = "4151"
-            print("replace png: " + flow.request.pretty_url)  
+            flow.response.content = open("herbs.png", "rb").read()
+            #flow.response.headers["Content-Type"] = "image/png"
+            #flow.response.headers["Content-Length"] = "4151"
+            print("replace image: " + flow.request.pretty_url)  
 
 
         if check_string(flow.request.pretty_url,
         ["3622a4b2282f27f86977e95fc9a8dcdecbc0f577",
         "0a3b0c84b23f14bdecedf23e0c66d221807d71f6"]):
-            pack = open("pack.bin", "rb").read()
-            flow.response.content = pack
-            flow.response.headers["Content-Length"] = "328100"
-            print("replace bin: " + flow.request.pretty_url)
+            pattern = b"\/[c|C]ollectible\_.{,40}sprite"
+            regex = re.compile(pattern)
+
+            for match_obj in regex.finditer(flow.response.content):
+                offset = match_obj.end()
+                flow.response.content = flow.response.content[:offset] + b"\x00\x00\x01\x00\x00\x00\x1C\x00\x00\x00\x00\x00\xF5\x00\x45\x01\x24\x01\x12\x01\x01\x00\x00\x00\x00\x00\x10\x00\x01\x00\x00\x00\x00\x00\x5D\x00\x55\x00\xC7\x00\xBD\x00\x0A\x01\x06" + flow.response.content[offset+45:] #IMHO x5D\x00\x55 size of herbs.png 92x84 px)
+            print("patch sprites in: " + flow.request.pretty_url)
+            #patched = open("test_content.bin", "wb")
+            #patched.write(flow.response.content)
+            #patched.close()
+
 
 #        if check_string(flow.request.pretty_url,["crossdomain.xml"]):
 #            xml = open("crossdomain.xml", "rb").read()
