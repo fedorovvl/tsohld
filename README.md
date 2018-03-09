@@ -22,9 +22,11 @@ to hash.pl pictures names imported from http://tsomaps.com/soft/config.xml (UbiC
 # or play via mitmproxy (mitmproxy-script, all next updates only for this script)
 1) install python3
 2) install mitmproxy
-3) in linux set in browser configuration or over shell "export http_proxy=http://127.0.0.1:8080"
-or   
-in macos run in terminal (replace full path), set proxy only for TSO hosts:
+3) in linux set in browser configuration or over shell
+```bash
+export http_proxy=http://127.0.0.1:8080
+```
+or in macos run in terminal (replace full path), set proxy only for TSO hosts:
 ```shell-script
 sudo networksetup -setautoproxystate Wi-Fi off
 sudo networksetup -setautoproxyurl Wi-Fi file:///Users/[your_username]/[path]/proxy.pac
