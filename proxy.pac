@@ -4,10 +4,7 @@ function FindProxyForURL(url, host)
     var proxy_no  = "DIRECT";
 
     if (shExpMatch(host, "mitm.it") || 
-        shExpMatch(host, "www.tsotesting.com") || 
-        shExpMatch(host, "*thesettlersonline*") || 
-        shExpMatch(host, "ubistatic-a.akamaihd.net") ||
-        shExpMatch(host, "tso-*-ssl.cdn.ubi.com")) { return proxy_yes; }
+        shExpMatch(host, "ubistatic-a.akamaihd.net")) { return proxy_yes; }
 
     return proxy_no;
 }
