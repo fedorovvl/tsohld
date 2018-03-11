@@ -20,7 +20,7 @@ to hash.pl pictures names imported from http://tsomaps.com/soft/config.xml (UbiC
 
 
 # or play via mitmproxy (mitmproxy-script, all next updates only for this script)
-1) install python3
+1) install python 2.7
 2) install mitmproxy
 3) in linux set in browser configuration or over shell
 ```bash
