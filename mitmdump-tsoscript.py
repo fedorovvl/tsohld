@@ -110,7 +110,7 @@ def response(flow):
         if check_string(flow.request.pretty_url,
         ["3622a4b2282f27f86977e95fc9a8dcdecbc0f577",
         "0a3b0c84b23f14bdecedf23e0c66d221807d71f6"]):
-            pattern = b"\/[c|C]ollectible\_.{,40}sprite"
+            pattern = b"[\_|\/][c|C]ollectible\_.{,40}sprite"
             regex = re.compile(pattern)
 
             for match_obj in regex.finditer(flow.response.content):
