@@ -107,7 +107,7 @@ def response(flow):
             print("replace image: " + flow.request.pretty_url)  
 
 
-        if check_string(flow.request.pretty_url, ["/0018/live/GFX_HASHED/amfpacker/"]):
+        if check_string(flow.request.pretty_url, ["/GFX_HASHED/amfpacker/"]):
             pattern = b"[\_|\/][c|C]ollectible\_.{,40}sprite"
             regex = re.compile(pattern)
 
