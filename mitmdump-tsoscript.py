@@ -107,16 +107,14 @@ def response(flow):
             print("replace image: " + flow.request.pretty_url)  
 
 
-        if check_string(flow.request.pretty_url,
-        ["3622a4b2282f27f86977e95fc9a8dcdecbc0f577",
-        "0a3b0c84b23f14bdecedf23e0c66d221807d71f6"]):
+        if check_string(flow.request.pretty_url, ["/0018/live/GFX_HASHED/amfpacker/"]):
             pattern = b"[\_|\/][c|C]ollectible\_.{,40}sprite"
             regex = re.compile(pattern)
 
             for match_obj in regex.finditer(flow.response.content):
                 offset = match_obj.end()
                 flow.response.content = flow.response.content[:offset] + b"\x00\x00\x01\x00\x00\x00\x1C\x00\x00\x00\x00\x00\xF5\x00\x45\x01\x24\x01\x12\x01\x01\x00\x00\x00\x00\x00\x10\x00\x01\x00\x00\x00\x00\x00\x5D\x00\x55\x00\xC7\x00\xBD\x00\x0A\x01\x06" + flow.response.content[offset+45:] #IMHO x5D\x00\x55 size of herbs.png 92x84 px)
-            print("patch sprites in: " + flow.request.pretty_url)
+                print("patch " + hex(offset) + " sprite in: " + flow.request.pretty_url)
             #patched = open("test_content.bin", "wb")
             #patched.write(flow.response.content)
             #patched.close()
