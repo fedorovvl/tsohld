@@ -1,8 +1,11 @@
 import os, re
 from mitmproxy import http
 
-tsohost = "ubistatic-a.akamaihd.net"
-
+tso_cdn_hosts = [ 'static.cdn.ubi.com', \
+                  'static10.cdn.ubi.com', \
+                  'static13.cdn.ubi.com', \
+                  'static14.cdn.ubi.com', \
+                  'ubistatic-a.akamaihd.net' ]
 
 def check_string(string, substring_list):
     for substring in substring_list:
@@ -10,12 +13,10 @@ def check_string(string, substring_list):
             return True
     return False
 
-
 def request(flow):
-    if (flow.request.pretty_host == tsohost):	
+    if flow.request.pretty_host in tso_cdn_hosts:
         flow.request.anticache()
         flow.request.anticomp()
-
 
 def response(flow):
     if (flow.request.pretty_host == tsohost):
