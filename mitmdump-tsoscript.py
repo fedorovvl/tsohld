@@ -19,7 +19,7 @@ def request(flow):
         flow.request.anticomp()
 
 def response(flow):
-    if (flow.request.pretty_host == tsohost):
+    if flow.request.pretty_host in tso_cdn_hosts:
         if check_string(flow.request.pretty_url,
         ["00ec9136d6ff4fedc70cdaa37a3bb25c4f4ab1e2",
         "d1d8cf6dcf7597f57377a3b028307fb54d5678d8",
