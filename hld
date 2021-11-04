@@ -34,7 +34,7 @@ for(1..$o{-f}){next if fork;{
         print STDERR "$$: $1 $uri\n";
         print "HTTP/1.1 ".($_
           ? "200\nContent-Type: $ct{$_}\nContent-Length: ".length($data{$_})."\n\n".$data{$_}
-          : "302\nLocation: https://ubistatic-a.akamaihd.net/0018/live$uri\n\n"
+          : "302\nLocation: ".substr($uri, 1)."\n\n"
         ) for $hash->{$1};
         exit;
       }
